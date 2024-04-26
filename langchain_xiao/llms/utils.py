@@ -26,7 +26,7 @@ def get_llm(instance_type: str, **model_kwargs: Any) -> BaseLLM:
 
     else:
         if instance_type in XIAO_CHAT_MODELS:
-            chat_models_module = importlib.import_module("xiao_langchain.llms")
+            chat_models_module = importlib.import_module("langchain_xiao.llms")
         else:
             chat_models_module = importlib.import_module("langchain_community.llms")
 

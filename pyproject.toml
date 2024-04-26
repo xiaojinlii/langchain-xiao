@@ -28,7 +28,7 @@ Documentation = "https://github.com/xiaojinlii/xiao-langchain/blob/main/README.m
 Source = "https://github.com/xiaojinlii/xiao-langchain"
 
 [tool.setuptools]
-packages = ["xiao_langchain"]
+packages = ["langchain_xiao"]
 
 [tool.setuptools.dynamic]
-version = {attr = "xiao_langchain.__version__"}
+version = {attr = "langchain_xiao.__version__"}

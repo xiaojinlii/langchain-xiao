@@ -1,4 +1,4 @@
-from xiao_langchain.embeddings.fastllm import FastllmEmbeddings
+from langchain_xiao.embeddings.fastllm import FastllmEmbeddings
 
 
 async def main():

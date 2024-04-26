@@ -28,7 +28,7 @@ def get_chat_model(instance_type: str, **model_kwargs: Any) -> BaseChatModel:
 
     else:
         if instance_type in XIAO_CHAT_MODELS:
-            chat_models_module = importlib.import_module("xiao_langchain.chat_models")
+            chat_models_module = importlib.import_module("langchain_xiao.chat_models")
         else:
             chat_models_module = importlib.import_module("langchain_community.chat_models")
 

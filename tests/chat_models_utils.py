@@ -1,6 +1,6 @@
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
-from xiao_langchain.chat_models.utils import get_chat_model
+from langchain_xiao.chat_models.utils import get_chat_model
 
 
 async def main():

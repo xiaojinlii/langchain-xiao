@@ -1,6 +1,6 @@
 from langchain_core.documents import Document
 
-from xiao_langchain.retrievers.document_compressors.fastllm_rerank import FastllmReranker
+from langchain_xiao.retrievers.document_compressors.fastllm_rerank import FastllmReranker
 
 
 async def main():
