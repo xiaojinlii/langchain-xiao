@@ -7,6 +7,7 @@ async def main():
     # instance_type = "ChatLlamaCpp"
     # model_kwargs = {
     #     "model_path": r"E:\WorkSpace\LLMWorkSpace\Models\LLM\qwen\Qwen1.5-0.5B-Chat-GGUF\qwen1_5-0_5b-chat-q5_k_m.gguf",
+    #     "verbose": True,
     # }
     instance_type = "ChatOpenAI"
     model_kwargs = {
