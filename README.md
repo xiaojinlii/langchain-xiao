@@ -1,2 +1,2 @@
 # langchain-xiao
-langchain扩展
+langchain扩展包
