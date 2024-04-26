@@ -1,0 +1,1 @@
+from .fastllm import FastllmEmbeddings
