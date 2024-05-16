@@ -137,7 +137,7 @@ class ChatCyou(BaseChatModel):
 
         if response["msg"] is None:
             message = AIMessage(content=response["data"]["content"])
-            token_usage = response["data"]["totalTokens"]
+            total_tokens = response["data"]["totalTokens"]
         else:
             error_msg = response['msg'].split(', ', 1)[1]
             error_msg = error_msg.strip('"')
@@ -147,11 +147,16 @@ class ChatCyou(BaseChatModel):
             status = msg_content['error']['status']
 
             message = AIMessage(content=f"error_code:{status} error_message:{msg}")
-            token_usage = 0
+            total_tokens = 0
 
         gen = ChatGeneration(message=message)
         generations.append(gen)
 
+        token_usage = {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": total_tokens
+        }
         llm_output = {"token_usage": token_usage, "model": self._llm_type}
         return ChatResult(generations=generations, llm_output=llm_output)
 
