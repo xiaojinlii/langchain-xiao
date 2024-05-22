@@ -7,6 +7,7 @@ from langchain_core.language_models import BaseChatModel
 XIAO_CHAT_MODELS = [
     "ChatLlamaCpp",
     "MyChatBaichuan",
+    "ChatHunyuan",
     "ChatCyou"
 ]
 
