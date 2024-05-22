@@ -6,8 +6,9 @@ from langchain_core.language_models import BaseChatModel
 
 XIAO_CHAT_MODELS = [
     "ChatLlamaCpp",
+    "MyChatTongyi",
     "MyChatBaichuan",
-    "ChatHunyuan",
+    "MyChatHunyuan",
     "ChatCyou"
 ]
 
@@ -23,11 +24,6 @@ def get_chat_model(instance_type: str, **model_kwargs: Any) -> BaseChatModel:
             )
         model = ChatOpenAI(**model_kwargs)
 
-    elif instance_type == "ChatTongyi":
-        from langchain_community.chat_models import ChatTongyi
-        model = ChatTongyi(**model_kwargs)
-        model.model_name = model_kwargs["model_name"]
-
     else:
         if instance_type in XIAO_CHAT_MODELS:
             chat_models_module = importlib.import_module("langchain_xiao.chat_models")
@@ -36,5 +32,8 @@ def get_chat_model(instance_type: str, **model_kwargs: Any) -> BaseChatModel:
 
         ChatModel = getattr(chat_models_module, instance_type)
         model = ChatModel(**model_kwargs)
+
+        if instance_type in ["ChatTongyi", "MyChatTongyi"]:
+            model.model_name = model_kwargs["model_name"]
 
     return model

@@ -86,11 +86,17 @@ def _create_chat_result(response) -> ChatResult:
         generations.append(ChatGeneration(message=message))
 
     token_usage = response.Usage
-    llm_output = {"token_usage": token_usage}
+    llm_output = {
+        "token_usage": {
+            "prompt_tokens": token_usage.PromptTokens,
+            "completion_tokens": token_usage.CompletionTokens,
+            "total_tokens": token_usage.TotalTokens
+        }
+    }
     return ChatResult(generations=generations, llm_output=llm_output)
 
 
-class ChatHunyuan(BaseChatModel):
+class MyChatHunyuan(BaseChatModel):
     """Tencent Hunyuan chat models API by Tencent.
 
     For more information, see https://cloud.tencent.com/document/product/1729
