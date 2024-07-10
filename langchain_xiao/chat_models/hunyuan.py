@@ -253,6 +253,11 @@ class MyChatHunyuan(BaseChatModel):
                     run_manager.on_llm_new_token(chunk.content, chunk=cg_chunk)
                 yield cg_chunk
 
+    def _replace_key(self, parameters: Dict):
+        if (temperature := parameters.pop("temperature", None)) is not None:
+            parameters["Temperature"] = temperature
+        return parameters
+
     def _chat(self, messages: List[BaseMessage], **kwargs: Any):
         if self.hunyuan_secret_key is None:
             raise ValueError("Hunyuan secret key is not set.")
@@ -260,6 +265,7 @@ class MyChatHunyuan(BaseChatModel):
         from tencentcloud.hunyuan.v20230901 import models
 
         parameters = {**self._default_params, **kwargs}
+        parameters = self._replace_key(parameters)
         payload = {
             "Messages": [_convert_message_to_dict(m) for m in messages],
             **parameters,

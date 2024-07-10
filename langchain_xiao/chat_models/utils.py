@@ -34,6 +34,6 @@ def get_chat_model(instance_type: str, **model_kwargs: Any) -> BaseChatModel:
         model = ChatModel(**model_kwargs)
 
         if instance_type in ["ChatTongyi", "MyChatTongyi"]:
-            model.model_name = model_kwargs["model_name"]
+            model.model_name = model_kwargs["model"]
 
     return model

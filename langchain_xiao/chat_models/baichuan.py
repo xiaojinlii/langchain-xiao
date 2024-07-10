@@ -1,5 +1,6 @@
 from typing import List, Optional, Any, Iterator, Dict, Mapping, Type
 
+import requests
 from langchain_community.chat_models import baichuan
 from langchain_community.chat_models.baichuan import ChatBaichuan
 from langchain_core.callbacks import CallbackManagerForLLMRun
@@ -82,3 +83,48 @@ class MyChatBaichuan(ChatBaichuan):
         # 调用stream和astream时，必须手动在kwargs里添加上stream=True才行
         kwargs.update({"stream": True})
         return super()._stream(messages, **kwargs)
+
+    def _chat(self, messages: List[BaseMessage], **kwargs: Any) -> requests.Response:
+        """
+        增加max_tokens参数
+        """
+
+        parameters = {**self._default_params, **kwargs}
+
+        model = parameters.pop("model")
+        headers = parameters.pop("headers", {})
+        temperature = parameters.pop("temperature", 0.3)
+        top_k = parameters.pop("top_k", 5)
+        top_p = parameters.pop("top_p", 0.85)
+        with_search_enhance = parameters.pop("with_search_enhance", False)
+        stream = parameters.pop("stream", False)
+        max_tokens = parameters.pop("max_tokens", 2048)
+
+        payload = {
+            "model": model,
+            "messages": [_convert_message_to_dict(m) for m in messages],
+            "top_k": top_k,
+            "top_p": top_p,
+            "temperature": temperature,
+            "with_search_enhance": with_search_enhance,
+            "stream": stream,
+            "max_tokens": max_tokens
+        }
+
+        url = self.baichuan_api_base
+        api_key = ""
+        if self.baichuan_api_key:
+            api_key = self.baichuan_api_key.get_secret_value()
+
+        res = requests.post(
+            url=url,
+            timeout=self.request_timeout,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {api_key}",
+                **headers,
+            },
+            json=payload,
+            stream=self.streaming,
+        )
+        return res

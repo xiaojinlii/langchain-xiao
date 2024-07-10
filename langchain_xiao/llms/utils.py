@@ -22,7 +22,7 @@ def get_llm(instance_type: str, **model_kwargs: Any) -> BaseLLM:
     elif instance_type == "Tongyi":
         from langchain_community.llms import Tongyi
         model = Tongyi(**model_kwargs)
-        model.model_name = model_kwargs["model_name"]
+        model.model_name = model_kwargs["model"]
 
     else:
         if instance_type in XIAO_CHAT_MODELS:

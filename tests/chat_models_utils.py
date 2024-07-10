@@ -11,7 +11,7 @@ async def main():
     # }
     instance_type = "ChatOpenAI"
     model_kwargs = {
-        "model_name": "moonshot-v1-8k",
+        "model": "moonshot-v1-8k",
         "openai_api_key": "sk-xxx",
         "openai_api_base": "https://api.moonshot.cn/v1",
     }
